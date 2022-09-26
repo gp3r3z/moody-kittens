@@ -13,22 +13,22 @@ Students that successfully build this application and meet all of the requiremen
 The basic design and layout for this app has been mocked out and the names of the JavaScript functions have all been created. As the developer you will need to work across HTML, CSS and JavaScript to complete the requirements. In the code you will see several comments intended to be used as help and guidelines on what needs to be accomplished. Once you have achieved the requirements of the app use GitHub to host the page live.
 
 ## Build Suggestions
-1. Create a form used to add a Kitten
+1. Create a form used to add a Kitten X
 1. Handle the form submission
-  - Prevent the page from reloading when submitting the form
-  - Pull the form data to get a new kitten and give that kitten an id
-  - Add the new kitten to the kittens array
-  - Reset the form
-  - Save the kittens list
-  - Draw the kittens list
+  X- Prevent the page from reloading when submitting the form
+  X- Pull the form data to get a new kitten and give that kitten an id
+  X- Add the new kitten to the kittens array
+  X- Reset the form
+  X- Save the kittens list
+ X - Draw the kittens list
 1. Handle Page Refresh
-  - Load the kittens list
-  - Draw the kittens list
+ X - Load the kittens list
+ X - Draw the kittens list
 
 ## Requirements: 
-- [ ] Users must have a form where they enter in at minimum the name of a kitten 
-- [ ] A Kitten's name and mood must be visible for the user 
-- [ ] A custom Google Font must be added 
+- [X] Users must have a form where they enter in at minimum the name of a kitten 
+- [X] A Kitten's name and mood must be visible for the user 
+- [X] A custom Google Font must be added 
 - [ ] A Kitten's mood must affect visually the appearance of the kitten 
 - [ ] Add Kitten form clears when submitted 
 - [ ] Add Kitten form submission does not reload the page 
