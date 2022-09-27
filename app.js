@@ -36,13 +36,15 @@ let form = event.target
       id: generateId(),
       name: form.name.value,
       mood: 'tolerant',
-      affection: 5
+      affection: 5,
+      img: kittenImg.neutralKitten, 
+      // color: getRandomColor()
       
     }
 
     console.log("Creating new kitten: " , newKitten)
 
-    kittens.push(newKitten);
+    kittens.push(newKitten)
 
     console.log("Updating the array")
     saveKittens()
@@ -65,8 +67,8 @@ function saveKittens() {
 
   window.localStorage.setItem("kittens", JSON.stringify(kittens))
 
-  drawKittens()
 
+  loadKittens()
 }
 
 
@@ -78,15 +80,21 @@ function saveKittens() {
  */
 function loadKittens() {
 
+    console.log("Loading kittens")
 
       let kittenData = JSON.parse(window.localStorage.getItem("kittens"))
 
-   
 
+      console.log("Current kittens " , kittenData)
+      
     if(kittenData){
-      kittens = kittenData
-       document.getElementById("welcome").remove()
-       drawKittens()
+
+      // document.getElementById("welcome").remove()
+if(document.getElementById("welcome")){
+  document.getElementById("welcome").remove()
+}
+       console.log("Kitten data present")
+       drawKittens(kittenData)
 
     } else {
       console.log("No data loaded")
@@ -94,57 +102,54 @@ function loadKittens() {
 
     }
 
+    function getRandomColor(){
+      let i = Math.floor(Math.random() * possibleColors.length);
+      currentColor = possibleColors[i];
+  
+   }
 
-  // TODO Working on syncing images with mood and updating data for user
 /**
  * Draw all of the kittens to the kittens element
  */
-function drawKittens() {
+function drawKittens(kittenData) {
+
+  console.log("drawing kittens...")
+  // for( let i = 0 ; i < kittens.length ; i++){
+  //   findKittenById(kittens[i])
+   
+  //   let kitty = findKittenById(kittens[i]); 
+
+
+  // }
 
   let kittensElement = document.getElementById("kittens")
 
-  let kittenMood ={
-    img: './neutral.png', 
-    color: getRandomColor()
-} 
-  function getRandomColor(){
-    let i = Math.floor(Math.random() * possibleColors.length);
-    currentColor = possibleColors[i];
-    console.log("getting random color", currentColor)
-   
- }
 
-
- if(currentColor == 'happy'){
-  kittenMood.img = kittenImg.happyKitten
-  kittens.mood = currentColor
-}
-if(currentColor == 'tolerant'){
-  kittenMood.img = kittenImg.neutralKitten
-  kittens.mood = currentColor
-}
-if(currentColor == 'angry'){
-  kittenMood.img = kittenImg.madKitten
-  kittens.mood = currentColor
-}
-
-
-console.log("The kitten image is " , kittenMood.img)
-
-
-
-
+  // if(kittens.color == 'happy'){
+  //   kittens.img = kittenImg.happyKitten
+  //   kittens.mood = kittens.color
+  // }
+  // if(kittens.color == 'tolerant'){
+  //   kittens.img = kittenImg.neutralKitten
+  //   kittens.mood = currentColor
+  // }
+  // if(kittens.color == 'angry'){
+  //   kittens.img = kittenImg.madKitten
+  //   kittens.mood = kittens.color
+  // }
 
   let template = "";
+console.log(kittenData)
 
+// TODO working on moood being affected by color
 
-  kittens.forEach( kitten => {
+kittenData.forEach( kitten => {
     template += `
     
     <div id="kittenCard" class="container m-3">
 
-    <div class="p-1 kitten ${currentColor}   " >
-    <img  src="${kittenMood.img}" height="170px"  /> 
+    <div class="p-1 kitten   " >
+    <img  src="${kitten.img}" height="170px"  /> 
     </div>
 
     <div class="p-1">
@@ -158,16 +163,23 @@ console.log("The kitten image is " , kittenMood.img)
       <button onclick="petKitten()" class="pet_Button">
         Pet
       </button>
-      <button onclick="feedKitten()" class="catnip_button">
+      <button onclick="catnip()" class="catnip_button">
       CatNip
     </button>
     </div>
+
     </div>
     
     `
   })
 
   kittensElement.innerHTML = template
+
+
+//   <button onclick="clearKittens()" class="catnip_button"> 
+//   Release All
+// </button>
+
 
 }
 
@@ -180,6 +192,8 @@ console.log("The kitten image is " , kittenMood.img)
  * @return {Kitten}
  */
 function findKittenById(id) {
+
+  console.log("Searching Kittens: " , id)
 }
 
 
@@ -204,6 +218,9 @@ function pet(id) {
  * @param {string} id
  */
 function catnip(id) {
+
+
+  console.log("Feeding Catnip: ", id);
 }
 
 /**
@@ -211,6 +228,10 @@ function catnip(id) {
  * @param {Kitten} kitten 
  */
 function setKittenMood(kitten) {
+
+
+
+
 }
 
 /**
@@ -218,6 +239,8 @@ function setKittenMood(kitten) {
  * remember to save this change
  */
 function clearKittens(){
+  console.log("Clearing kitten")
+  localStorage.clear();
 }
 
 /**
@@ -230,10 +253,8 @@ function getStarted() {
 
 
   loadKittens()
-  drawKittens()
 
 }
-drawKittens()
 
 // --------------------------------------------- No Changes below this line are needed
 
@@ -252,4 +273,4 @@ function generateId() {
   return Math.floor(Math.random() * 10000000) + "-" + Math.floor(Math.random() * 10000000)
 }
 
-loadKittens();
+loadKittens()

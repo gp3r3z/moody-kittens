@@ -300,7 +300,7 @@ background-color: red;
   margin-left: .5em;
   border-radius: 12px;
   display: inline-block;
-  padding: .7em;
+  padding: 1em;
 
 }
 
@@ -310,5 +310,15 @@ background-color: red;
   margin-left: 3em;
   border-radius: 12px;
   display: inline-block;
+
+}
+.release_button{
+  text-align: center;
+  padding: .7em;
+  
+  border-radius: 12px;
+  display: inline-block;
+  background-color:yellow ;
+  color: black;
 
 }
