@@ -322,3 +322,7 @@ background-color: red;
   color: black;
 
 }
+
+.hide {
+  display:none
+}

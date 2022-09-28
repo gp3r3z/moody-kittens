@@ -1,4 +1,4 @@
-let kittens = []
+let kittens = [""]
 /**
  * Called when submitting the new Kitten Form
  * This method will pull data from the form
@@ -8,14 +8,15 @@ let kittens = []
  */
 
 
-let possibleColors = ["happy","tolerant","angry", "gone"]
+
+let  welcomeElem =  document.getElementById("welcome")
 
 const kittenImg = {
-      neutralKitten: './neutral.png',
-      happyKitten: './happy_kitten.png',
-      madKitten: './mad_kitten.png',
-      sadKitten: './neutral.png'
-    
+  neutralKitten: './neutral.png',
+  happyKitten: './happy_kitten.png',
+  madKitten: './mad_kitten.png',
+  sadKitten: './neutral.png'
+
 }
 
 
@@ -24,36 +25,32 @@ const kittenImg = {
 function addKitten(event) {
 
   event.preventDefault()
-let form = event.target 
-
-
-
+  let form = event.target
 
   console.log("Adding Kitten")
 
 
-    let newKitten = {
-      id: generateId(),
-      name: form.name.value,
-      mood: 'tolerant',
-      affection: 5,
-      img: kittenImg.neutralKitten, 
-      // color: getRandomColor()
-      
-    }
+  let newKitten = {
+    id: generateId(),
+    name: form.name.value,
+    mood: 'tolerant',
+    affection: 5,
+    img: kittenImg.neutralKitten
 
-    console.log("Creating new kitten: " , newKitten)
+  }
 
-    kittens.push(newKitten)
+  console.log("Creating new kitten: ", newKitten)
 
-    console.log("Updating the array")
-    saveKittens()
+  kittens.push(newKitten)
 
+  console.log("Updating the array")
+  saveKittens()
 
 
-    form.reset()
 
-    console.log("Sucessfully added kitten")
+  form.reset()
+
+  console.log("Sucessfully added kitten")
 }
 
 /**
@@ -63,12 +60,15 @@ let form = event.target
 function saveKittens() {
 
   console.log("Saving Kitten")
-
-
   window.localStorage.setItem("kittens", JSON.stringify(kittens))
 
 
-  loadKittens()
+
+
+loadKittens()
+
+
+
 }
 
 
@@ -80,75 +80,67 @@ function saveKittens() {
  */
 function loadKittens() {
 
-    console.log("Loading kittens")
+  console.log("Loading kittens")
 
-      let kittenData = JSON.parse(window.localStorage.getItem("kittens"))
+  let kittenData = JSON.parse(window.localStorage.getItem("kittens"))
 
+   kittens = kittenData
 
-      console.log("Current kittens " , kittenData)
+  console.log("Current kittens Array  ", kittens)
+
+  if (kittens.length) {
+
+    if (document.getElementById("welcome")) {
       
-    if(kittenData){
+      welcomeElem.style.display = "none"
 
-      // document.getElementById("welcome").remove()
-if(document.getElementById("welcome")){
-  document.getElementById("welcome").remove()
+    }
+    console.log("Kitten data present" , kittens)
+
+
+  } else {
+    console.log("No data loaded")
+    welcomeElem.removeAttribute('style')
+ 
+
+  }
+  drawKittens(kittens)
+
 }
-       console.log("Kitten data present")
-       drawKittens(kittenData)
 
-    } else {
-      console.log("No data loaded")
-    }
 
-    }
-
-    function getRandomColor(){
-      let i = Math.floor(Math.random() * possibleColors.length);
-      currentColor = possibleColors[i];
-  
-   }
 
 /**
  * Draw all of the kittens to the kittens element
  */
-function drawKittens(kittenData) {
+function drawKittens(kittens) {
 
   console.log("drawing kittens...")
-  // for( let i = 0 ; i < kittens.length ; i++){
-  //   findKittenById(kittens[i])
-   
-  //   let kitty = findKittenById(kittens[i]); 
-
-
-  // }
 
   let kittensElement = document.getElementById("kittens")
+  let template = ""
+  
+if (kittens.mood == 'happy') {
+  kittens.img = kittenImg.happyKitten
+
+}
+if (kittens.mood == 'tolerant') {
+  kittens.img = kittenImg.neutralKitten
+
+}
+if (kittens.mood == 'angry') {
+  kittens.img = kittenImg.madKitten
+
+}
+  console.log("Checking data" , kittens)
 
 
-  // if(kittens.color == 'happy'){
-  //   kittens.img = kittenImg.happyKitten
-  //   kittens.mood = kittens.color
-  // }
-  // if(kittens.color == 'tolerant'){
-  //   kittens.img = kittenImg.neutralKitten
-  //   kittens.mood = currentColor
-  // }
-  // if(kittens.color == 'angry'){
-  //   kittens.img = kittenImg.madKitten
-  //   kittens.mood = kittens.color
-  // }
-
-  let template = "";
-console.log(kittenData)
-
-// TODO working on moood being affected by color
-
-kittenData.forEach( kitten => {
+  kittens.forEach(kitten => {
     template += `
     
     <div id="kittenCard" class="container m-3">
 
-    <div class="p-1 kitten   " >
+    <div class="p-1 kitten ${kitten.mood}  " >
     <img  src="${kitten.img}" height="170px"  /> 
     </div>
 
@@ -175,12 +167,6 @@ kittenData.forEach( kitten => {
 
   kittensElement.innerHTML = template
 
-
-//   <button onclick="clearKittens()" class="catnip_button"> 
-//   Release All
-// </button>
-
-
 }
 
 
@@ -193,7 +179,7 @@ kittenData.forEach( kitten => {
  */
 function findKittenById(id) {
 
-  console.log("Searching Kittens: " , id)
+  console.log("Searching Kittens: ", id)
 }
 
 
@@ -238,21 +224,30 @@ function setKittenMood(kitten) {
  * Removes all of the kittens from the array
  * remember to save this change
  */
-function clearKittens(){
+function clearKittens() {
   console.log("Clearing kitten")
-  localStorage.clear();
+  kittens.splice(0)
+
+  console.log(kittens , " Data successfully cleared")
+  saveKittens()
+ 
 }
+
 
 /**
  * Removes the welcome content and should probably draw the 
  * list of kittens to the page. Good Luck
  */
 function getStarted() {
-  document.getElementById("welcome").remove()
+
+  
+
   console.log('Good Luck, Take it away')
 
 
   loadKittens()
+
+  welcomeElem.style.display = "none"
 
 }
 
