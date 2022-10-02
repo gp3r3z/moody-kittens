@@ -33,8 +33,16 @@ The basic design and layout for this app has been mocked out and the names of th
 - [X] Add Kitten form clears when submitted 
 - [X] Add Kitten form submission does not reload the page 
 - [X] Kittens are stored in local storage 
-- [ ] Kittens can be deleted 
+- [X] Kittens can be deleted 
 - [ ] Kittens have at least two buttons that affect the kitten's mood in different ways 
 - [ ] Kitten's and their mood persist through page reloads 
 - [ ] Kitten's with the same name as an already present kitten cannot be added 
 - [ ] Kittens are visible when the page reloads
+
+
+Sound Effect from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=89108">Pixabay</a>
+
+Sound Effect from <a href="https://pixabay.com/sound-effects/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=43850">Pixabay</a>
+
+
+Sound Effect from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=14536">Pixabay</a>

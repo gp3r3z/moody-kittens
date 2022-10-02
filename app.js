@@ -1,4 +1,4 @@
-let kittens = [""]
+let kittens = []
 /**
  * Called when submitting the new Kitten Form
  * This method will pull data from the form
@@ -18,9 +18,6 @@ const kittenImg = {
   sadKitten: './neutral.png'
 
 }
-
-
-
 
 function addKitten(event) {
 
@@ -80,31 +77,33 @@ loadKittens()
  */
 function loadKittens() {
 
+  
+  let kittenData = JSON.parse(window.localStorage.getItem("kittens"))
   console.log("Loading kittens")
 
-  let kittenData = JSON.parse(window.localStorage.getItem("kittens"))
+ 
+  console.log("Checking if array is empty: \n  ", kittens )
 
-   kittens = kittenData
-
-  console.log("Current kittens Array  ", kittens)
-
-  if (kittens.length) {
+  if (kittens.length !== 0) { 
+    
+    console.log("Kitten data present saving to the array \n "  , "Array: \n", kittens,  "\n LocalStorage: \n", kittens,)
 
     if (document.getElementById("welcome")) {
       
       welcomeElem.style.display = "none"
 
     }
-    console.log("Kitten data present" , kittens)
 
+   console.log("Kittens array updated")
+    drawKittens(kittens)
 
   } else {
     console.log("No data loaded")
     welcomeElem.removeAttribute('style')
- 
+    drawKittens(kittens)
 
   }
-  drawKittens(kittens)
+
 
 }
 
@@ -120,18 +119,9 @@ function drawKittens(kittens) {
   let kittensElement = document.getElementById("kittens")
   let template = ""
   
-if (kittens.mood == 'happy') {
-  kittens.img = kittenImg.happyKitten
+// setKittenMood(kittens)
 
-}
-if (kittens.mood == 'tolerant') {
-  kittens.img = kittenImg.neutralKitten
 
-}
-if (kittens.mood == 'angry') {
-  kittens.img = kittenImg.madKitten
-
-}
   console.log("Checking data" , kittens)
 
 
@@ -152,12 +142,14 @@ if (kittens.mood == 'angry') {
 
 
     <div class="buttonLook">
-      <button onclick="petKitten()" class="pet_Button">
+      <button onclick=pet('${kitten.id}') class="pet_Button">
         Pet
       </button>
-      <button onclick="catnip()" class="catnip_button">
+      <button onclick=catnip('${kitten.id}') class="catnip_button">
       CatNip
     </button>
+
+    <audio id="meow-sound" src="catMeow.mp3"></audio>
     </div>
 
     </div>
@@ -179,8 +171,16 @@ if (kittens.mood == 'angry') {
  */
 function findKittenById(id) {
 
-  console.log("Searching Kittens: ", id)
-}
+ const index = kittens.findIndex(kitten => kitten.id === id)
+
+  console.log("Searching For kitten: \n ", kittens[index])
+
+  return kittens[index]
+
+
+  
+ }
+
 
 
 /**
@@ -193,7 +193,36 @@ function findKittenById(id) {
  */
 function pet(id) {
 
+     let foundKitten = findKittenById(id)
 
+
+  // document.getElementById("meow-sound").play()
+
+
+  // TODO working on edditing rando Number 
+
+
+
+  console.log("Petting Cat", foundKitten.name)
+
+  let randoNumber = Math.floor(Math.random())
+
+  if (randoNumber > .5 ){
+    console.log("Kitten affection increating")
+
+ foundKitten.affection++ 
+ console.log('Kitten mood changed', foundKitten);
+
+   
+  }else{
+     
+
+ foundKitten.affection--
+
+    console.log('Kitten mood changed', foundKitten);
+
+  }
+  saveKittens()
 
 }
 
@@ -204,9 +233,11 @@ function pet(id) {
  * @param {string} id
  */
 function catnip(id) {
+  console.log("Giving a cat canip")
+
+  document.getElementById("meow-sound").play()
 
 
-  console.log("Feeding Catnip: ", id);
 }
 
 /**
@@ -214,6 +245,20 @@ function catnip(id) {
  * @param {Kitten} kitten 
  */
 function setKittenMood(kitten) {
+
+
+  if (kitten.mood == 'happy') {
+    kitten.img = kittenImg.happyKitten
+  
+  }
+  if (kitten.mood == 'tolerant') {
+    kitten.img = kittenImg.neutralKitten
+  
+  }
+  if (kitten.mood == 'angry') {
+    kitten.img = kittenImg.madKitten
+  
+  }
 
 
 
