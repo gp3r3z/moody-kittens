@@ -42,11 +42,13 @@ function addKitten(event) {
 
 // TODO Prevent duplicate array 
 
-  if(kittens.indexOf(form.name.value) === true){
-    console.log("Duplicate name not found adding kitten ")
-    kittens.push(newKitten)
+  // if(kittens.indexOf(form.name.value) === true){
+  //   console.log("Duplicate name not found adding kitten ")
+  //   kittens.push(newKitten)
 
-  }
+  // }
+
+  kittens.push(newKitten)
 
   console.log("Updating the array")
   saveKittens()
@@ -67,7 +69,6 @@ function saveKittens() {
   console.log("Saving Kitten")
 
   window.localStorage.setItem("kittens", JSON.stringify(kittens))
-
   loadKittens()
 
 }
@@ -80,17 +81,17 @@ function saveKittens() {
  * the kittens array to the retrieved array
  */
 function loadKittens() {
-
-
   let kittenData = JSON.parse(window.localStorage.getItem("kittens"))
-  console.log("Checking Local storage", kittenData)
+  console.log("Checking Local storage")
 
-kittens = kittenData
+
+
   console.log("Checking if array is empty: \n  ", kittens)
 
-  if (kittens.length !== 0) {
-
+  if (kittens) {
+    
     console.log("Kitten data present saving to the array \n ", "Array: \n", kittens, "\n LocalStorage: \n", kittens,)
+    kittens = kittenData
 
     if (document.getElementById("welcome")) {
 
@@ -98,11 +99,8 @@ kittens = kittenData
 
     }
 
+
     console.log("Loading array complete")
-
-
-     console.log("Setting kitten mood", kittens)
-
     drawKittens(kittens)
 
   } else {
