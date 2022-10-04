@@ -1,11 +1,6 @@
 let kittens = []
-/**
- * Called when submitting the new Kitten Form
- * This method will pull data from the form
- * use the provided function to give the data an id
- * then add that data to the kittens list.
- * Then reset the form
- */
+
+
 
 let max = 10
 
@@ -18,6 +13,14 @@ const kittenImg = {
   sadKitten: './neutral.png'
 
 }
+/**
+ * Called when submitting the new Kitten Form
+ * This method will pull data from the form
+ * use the provided function to give the data an id
+ * then add that data to the kittens list.
+ * Then reset the form
+ */
+
 
 function addKitten(event) {
 
@@ -51,10 +54,8 @@ function addKitten(event) {
   kittens.push(newKitten)
 
   console.log("Updating the array")
+
   saveKittens()
-
-
-
   form.reset()
 
   console.log("Sucessfully added kitten")
@@ -70,7 +71,7 @@ function saveKittens() {
 
   window.localStorage.setItem("kittens", JSON.stringify(kittens))
   loadKittens()
-
+//  drawKittens()
 }
 
 
@@ -85,13 +86,13 @@ function loadKittens() {
   console.log("Checking Local storage")
 
 
-
   console.log("Checking if array is empty: \n  ", kittens)
 
-  if (kittens) {
-    
-    console.log("Kitten data present saving to the array \n ", "Array: \n", kittens, "\n LocalStorage: \n", kittens,)
+  if (kittenData.length) {
     kittens = kittenData
+
+    console.log("Kitten data present saving to the array \n ", "Array: \n", kittens, "\n LocalStorage: \n", kittens,)
+  
 
     if (document.getElementById("welcome")) {
 
