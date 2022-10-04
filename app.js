@@ -7,9 +7,9 @@ let kittens = []
  * Then reset the form
  */
 
+let max = 10
 
-
-let  welcomeElem =  document.getElementById("welcome")
+let welcomeElem = document.getElementById("welcome")
 
 const kittenImg = {
   neutralKitten: './neutral.png',
@@ -36,9 +36,17 @@ function addKitten(event) {
 
   }
 
+
+
   console.log("Creating new kitten: ", newKitten)
 
-  kittens.push(newKitten)
+// TODO Prevent duplicate array 
+
+  if(kittens.indexOf(form.name.value) === true){
+    console.log("Duplicate name not found adding kitten ")
+    kittens.push(newKitten)
+
+  }
 
   console.log("Updating the array")
   saveKittens()
@@ -57,14 +65,10 @@ function addKitten(event) {
 function saveKittens() {
 
   console.log("Saving Kitten")
+
   window.localStorage.setItem("kittens", JSON.stringify(kittens))
 
-
-
-
-loadKittens()
-
-
+  loadKittens()
 
 }
 
@@ -77,24 +81,28 @@ loadKittens()
  */
 function loadKittens() {
 
-  
+
   let kittenData = JSON.parse(window.localStorage.getItem("kittens"))
-  console.log("Loading kittens")
+  console.log("Checking Local storage", kittenData)
 
- 
-  console.log("Checking if array is empty: \n  ", kittens )
+kittens = kittenData
+  console.log("Checking if array is empty: \n  ", kittens)
 
-  if (kittens.length !== 0) { 
-    
-    console.log("Kitten data present saving to the array \n "  , "Array: \n", kittens,  "\n LocalStorage: \n", kittens,)
+  if (kittens.length !== 0) {
+
+    console.log("Kitten data present saving to the array \n ", "Array: \n", kittens, "\n LocalStorage: \n", kittens,)
 
     if (document.getElementById("welcome")) {
-      
+
       welcomeElem.style.display = "none"
 
     }
 
-   console.log("Kittens array updated")
+    console.log("Loading array complete")
+
+
+     console.log("Setting kitten mood", kittens)
+
     drawKittens(kittens)
 
   } else {
@@ -113,16 +121,14 @@ function loadKittens() {
  * Draw all of the kittens to the kittens element
  */
 function drawKittens(kittens) {
-
   console.log("drawing kittens...")
 
   let kittensElement = document.getElementById("kittens")
   let template = ""
-  
-// setKittenMood(kittens)
 
 
-  console.log("Checking data" , kittens)
+
+  console.log("Checking data", kittens)
 
 
   kittens.forEach(kitten => {
@@ -171,15 +177,15 @@ function drawKittens(kittens) {
  */
 function findKittenById(id) {
 
- const index = kittens.findIndex(kitten => kitten.id === id)
+  const index = kittens.findIndex(kitten => kitten.id === id)
 
   console.log("Searching For kitten: \n ", kittens[index])
 
   return kittens[index]
 
 
-  
- }
+
+}
 
 
 
@@ -193,35 +199,38 @@ function findKittenById(id) {
  */
 function pet(id) {
 
-     let foundKitten = findKittenById(id)
+  let foundKitten = findKittenById(id)
 
 
-  // document.getElementById("meow-sound").play()
+  // TODO need to edit cat noise 
 
-
-  // TODO working on edditing rando Number 
-
+  document.getElementById("meow-sound").play()
 
 
   console.log("Petting Cat", foundKitten.name)
 
-  let randoNumber = Math.floor(Math.random())
+  let randoNumber = Math.random().toFixed(2)
 
-  if (randoNumber > .5 ){
-    console.log("Kitten affection increating")
 
- foundKitten.affection++ 
- console.log('Kitten mood changed', foundKitten);
+  console.log(randoNumber)
+  if (randoNumber > .5) {
+    console.log("Kitten affection increasing")
 
-   
-  }else{
-     
+    foundKitten.affection++
+    console.log('Kitten affection changed', foundKitten.affection);
 
- foundKitten.affection--
 
-    console.log('Kitten mood changed', foundKitten);
+  } else {
+
+
+    foundKitten.affection--
+
+    console.log('Kitten affection changed', foundKitten);
+
 
   }
+
+  setKittenMood(foundKitten)
   saveKittens()
 
 }
@@ -233,11 +242,19 @@ function pet(id) {
  * @param {string} id
  */
 function catnip(id) {
-  console.log("Giving a cat canip")
 
-  document.getElementById("meow-sound").play()
+  let foundKitten = findKittenById(id)
 
 
+  console.log("Giving ", foundKitten.name, " catnip ")
+
+
+
+  foundKitten.mood = 'tolerant'
+  foundKitten.affection = 5
+
+  setKittenMood(foundKitten)
+  saveKittens()
 }
 
 /**
@@ -247,19 +264,35 @@ function catnip(id) {
 function setKittenMood(kitten) {
 
 
-  if (kitten.mood == 'happy') {
+ console.log("Setting kittens mood " , kitten )
+
+for (let i = 0 ; i < kitten.length; i++ ){
+
+
+}
+
+  if (kitten.affection >= 6) {
     kitten.img = kittenImg.happyKitten
-  
+    kitten.mood = 'happy'
+
   }
-  if (kitten.mood == 'tolerant') {
+  if (kitten.affection == 5) {
     kitten.img = kittenImg.neutralKitten
-  
+    kitten.mood = 'tolerant'
+
   }
-  if (kitten.mood == 'angry') {
+  if (kitten.affection <= 4) {
     kitten.img = kittenImg.madKitten
-  
+    kitten.mood = 'angry'
+
+  }
+  if(kitten.affection == 10 ){
+    kitten.mood = 'gone'
+
   }
 
+
+  console.log("Kitten object updated" , kitten) 
 
 
 
@@ -273,9 +306,9 @@ function clearKittens() {
   console.log("Clearing kitten")
   kittens.splice(0)
 
-  console.log(kittens , " Data successfully cleared")
+  console.log(kittens, " Data successfully cleared")
   saveKittens()
- 
+
 }
 
 
@@ -284,8 +317,6 @@ function clearKittens() {
  * list of kittens to the page. Good Luck
  */
 function getStarted() {
-
-  
 
   console.log('Good Luck, Take it away')
 

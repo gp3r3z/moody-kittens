@@ -34,8 +34,8 @@ The basic design and layout for this app has been mocked out and the names of th
 - [X] Add Kitten form submission does not reload the page 
 - [X] Kittens are stored in local storage 
 - [X] Kittens can be deleted 
-- [ ] Kittens have at least two buttons that affect the kitten's mood in different ways 
-- [ ] Kitten's and their mood persist through page reloads 
+- [X] Kittens have at least two buttons that affect the kitten's mood in different ways 
+- [X] Kitten's and their mood persist through page reloads 
 - [ ] Kitten's with the same name as an already present kitten cannot be added 
 - [ ] Kittens are visible when the page reloads
 
