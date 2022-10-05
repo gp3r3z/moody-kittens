@@ -1,7 +1,5 @@
 let kittens = []
 
-
-
 let max = 10
 
 let welcomeElem = document.getElementById("welcome")
@@ -67,7 +65,7 @@ function addKitten(event) {
  */
 function saveKittens() {
 
-  console.log("Saving Kitten")
+  console.log("Saving Kitten Changes")
 
   window.localStorage.setItem("kittens", JSON.stringify(kittens))
   loadKittens()
@@ -82,17 +80,21 @@ function saveKittens() {
  * the kittens array to the retrieved array
  */
 function loadKittens() {
-  let kittenData = JSON.parse(window.localStorage.getItem("kittens"))
-  console.log("Checking Local storage")
+ let kittenData = JSON.parse(window.localStorage.getItem("kittens"))
 
 
-  console.log("Checking if array is empty: \n  ", kittens)
+  console.log("Checking if localstorage is empty: \n  ", kittenData)
+  console.log( "Checking type " , typeof(kittenData))
 
-  if (kittenData.length) {
-    kittens = kittenData
+  if (!kittenData) {
+    kittens = []
+    console.log("No data loaded")
 
-    console.log("Kitten data present saving to the array \n ", "Array: \n", kittens, "\n LocalStorage: \n", kittens,)
-  
+    drawKittens(kittens)
+
+    welcomeElem.removeAttribute('style')
+
+  } else {
 
     if (document.getElementById("welcome")) {
 
@@ -100,13 +102,10 @@ function loadKittens() {
 
     }
 
+    kittens = kittenData
 
-    console.log("Loading array complete")
-    drawKittens(kittens)
+    console.log("Data found in localStorage \n Loading to the array \n",  "LocalStorage: \n", kittenData, "\n Array: \n", kittens, )
 
-  } else {
-    console.log("No data loaded")
-    welcomeElem.removeAttribute('style')
     drawKittens(kittens)
 
   }
@@ -124,11 +123,6 @@ function drawKittens(kittens) {
 
   let kittensElement = document.getElementById("kittens")
   let template = ""
-
-
-
-  console.log("Checking data", kittens)
-
 
   kittens.forEach(kitten => {
     template += `
@@ -163,6 +157,7 @@ function drawKittens(kittens) {
   })
 
   kittensElement.innerHTML = template
+  console.log("Kitten elements drawn")
 
 }
 
@@ -303,8 +298,11 @@ for (let i = 0 ; i < kitten.length; i++ ){
  */
 function clearKittens() {
   console.log("Clearing kitten")
-  kittens.splice(0)
 
+
+ kittens = null
+
+ 
   console.log(kittens, " Data successfully cleared")
   saveKittens()
 
