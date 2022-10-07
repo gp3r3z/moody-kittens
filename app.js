@@ -3,10 +3,9 @@ let kittens = []
 let welcomeElem = document.getElementById("welcome")
 
 const kittenImg = {
-  neutralKitten: './neutral.png',
+  neutralKitten:'./neutral_kitten.png',
   happyKitten: './happy_kitten.png',
-  madKitten: './mad_kitten.png',
-  sadKitten: './neutral.png'
+  madKitten: './mad_kitten.png', 
 
 }
 /**
@@ -166,7 +165,6 @@ function drawKittens(kittens) {
       CatNip
     </button>
 
-    <audio id="meow-sound" src="catMeow.mp3"></audio>
     </div>
 
     </div>
@@ -209,12 +207,7 @@ function findKittenById(id) {
  */
 function pet(id) {
 
-  let foundKitten = findKittenById(id)
-
-
-  // TODO need to edit cat noise 
-
-  document.getElementById("meow-sound").play()
+  let foundKitten = findKittenById(id)  
 
 
   console.log("Petting Cat", foundKitten.name)
@@ -254,6 +247,7 @@ function pet(id) {
 function catnip(id) {
 
   let foundKitten = findKittenById(id)
+  document.getElementById("meow-sound").play()
 
   console.log("Giving ", foundKitten.name, " catnip ")
   foundKitten.mood = 'tolerant'
@@ -287,7 +281,7 @@ function setKittenMood(kitten) {
     kitten.mood = 'angry'
 
   }
-  if (kitten.affection == 10) {
+  if (kitten.affection == 0) {
     kitten.mood = 'gone'
 
   }
