@@ -20,10 +20,10 @@ The basic design and layout for this app has been mocked out and the names of th
   X- Add the new kitten to the kittens array
   X- Reset the form
   X- Save the kittens list
- X - Draw the kittens list
+  X- Draw the kittens list
 1. Handle Page Refresh
- X - Load the kittens list
- X - Draw the kittens list
+  X- Load the kittens list
+  X- Draw the kittens list
 
 ## Requirements: 
 - [X] Users must have a form where they enter in at minimum the name of a kitten 
@@ -36,8 +36,8 @@ The basic design and layout for this app has been mocked out and the names of th
 - [X] Kittens can be deleted 
 - [X] Kittens have at least two buttons that affect the kitten's mood in different ways 
 - [X] Kitten's and their mood persist through page reloads 
-- [ ] Kitten's with the same name as an already present kitten cannot be added 
-- [ ] Kittens are visible when the page reloads
+- [X] Kitten's with the same name as an already present kitten cannot be added 
+- [X] Kittens are visible when the page reloads
 
 
 Sound Effect from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=89108">Pixabay</a>

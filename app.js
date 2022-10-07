@@ -1,7 +1,5 @@
 let kittens = []
 
-let max = 10
-
 let welcomeElem = document.getElementById("welcome")
 
 const kittenImg = {
@@ -24,7 +22,7 @@ function addKitten(event) {
 
   event.preventDefault()
   let form = event.target
-
+   let isdup = false; 
   console.log("Adding Kitten")
 
 
@@ -38,25 +36,46 @@ function addKitten(event) {
   }
 
 
+  if(kittens.length){
+    let isdup = false 
+    console.log("Checking if value is duplicate")
 
-  console.log("Creating new kitten: ", newKitten)
+    for(i in kittens){
+      console.log("Checking Array if duplicate is present" ,kittens[i])
+      if(kittens[i].name === newKitten.name){
 
-// TODO Prevent duplicate array 
+       
+        alert("Kitten already exists")
+        isdup = true 
+        console.log("Duplicate Status: ", isdup)
+        break
+        
+      }
+   
+      
+    }
 
-  // if(kittens.indexOf(form.name.value) === true){
-  //   console.log("Duplicate name not found adding kitten ")
-  //   kittens.push(newKitten)
+    if(!isdup){
+      console.log("Kitten added", isdup)
+      kittens.push(newKitten)
+      saveKittens()
+    }
+    else{
+         alert("Please enter another name not used!")
 
-  // }
+    }
 
-  kittens.push(newKitten)
+    }
 
-  console.log("Updating the array")
-
-  saveKittens()
+  else{
+    kittens.push(newKitten)
+    console.log("First Kitten added")
+    console.log("Sucessfully added kitten")
+    saveKittens()
+  }
   form.reset()
 
-  console.log("Sucessfully added kitten")
+
 }
 
 /**
@@ -69,7 +88,6 @@ function saveKittens() {
 
   window.localStorage.setItem("kittens", JSON.stringify(kittens))
   loadKittens()
-//  drawKittens()
 }
 
 
@@ -80,11 +98,11 @@ function saveKittens() {
  * the kittens array to the retrieved array
  */
 function loadKittens() {
- let kittenData = JSON.parse(window.localStorage.getItem("kittens"))
+  let kittenData = JSON.parse(window.localStorage.getItem("kittens"))
 
 
   console.log("Checking if localstorage is empty: \n  ", kittenData)
-  console.log( "Checking type " , typeof(kittenData))
+  console.log("Checking type ", typeof (kittenData))
 
   if (!kittenData) {
     kittens = []
@@ -104,7 +122,7 @@ function loadKittens() {
 
     kittens = kittenData
 
-    console.log("Data found in localStorage \n Loading to the array \n",  "LocalStorage: \n", kittenData, "\n Array: \n", kittens, )
+    console.log("Data found in localStorage \n Loading to the array \n", "LocalStorage: \n", kittenData, "\n Array: \n", kittens,)
 
     drawKittens(kittens)
 
@@ -177,8 +195,6 @@ function findKittenById(id) {
 
   return kittens[index]
 
-
-
 }
 
 
@@ -239,11 +255,7 @@ function catnip(id) {
 
   let foundKitten = findKittenById(id)
 
-
   console.log("Giving ", foundKitten.name, " catnip ")
-
-
-
   foundKitten.mood = 'tolerant'
   foundKitten.affection = 5
 
@@ -258,12 +270,7 @@ function catnip(id) {
 function setKittenMood(kitten) {
 
 
- console.log("Setting kittens mood " , kitten )
-
-for (let i = 0 ; i < kitten.length; i++ ){
-
-
-}
+  console.log("Setting kittens mood ", kitten)
 
   if (kitten.affection >= 6) {
     kitten.img = kittenImg.happyKitten
@@ -280,13 +287,13 @@ for (let i = 0 ; i < kitten.length; i++ ){
     kitten.mood = 'angry'
 
   }
-  if(kitten.affection == 10 ){
+  if (kitten.affection == 10) {
     kitten.mood = 'gone'
 
   }
 
 
-  console.log("Kitten object updated" , kitten) 
+  console.log("Kitten object updated", kitten)
 
 
 
@@ -300,9 +307,9 @@ function clearKittens() {
   console.log("Clearing kitten")
 
 
- kittens = null
+  kittens = null
 
- 
+
   console.log(kittens, " Data successfully cleared")
   saveKittens()
 
