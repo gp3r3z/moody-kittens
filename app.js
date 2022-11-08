@@ -3,9 +3,9 @@ let kittens = []
 let welcomeElem = document.getElementById("welcome")
 
 const kittenImg = {
-  neutralKitten:'./neutral_kitten.png',
+  neutralKitten: './neutral_kitten.png',
   happyKitten: './happy_kitten.png',
-  madKitten: './mad_kitten.png', 
+  madKitten: './mad_kitten.png',
 
 }
 /**
@@ -21,7 +21,7 @@ function addKitten(event) {
 
   event.preventDefault()
   let form = event.target
-   let isdup = false; 
+  let isdup = false;
   console.log("Adding Kitten")
 
 
@@ -35,38 +35,38 @@ function addKitten(event) {
   }
 
 
-  if(kittens.length){
-    let isdup = false 
+  if (kittens.length) {
+    let isdup = false
     console.log("Checking if value is duplicate")
 
-    for(i in kittens){
-      console.log("Checking Array if duplicate is present" ,kittens[i])
-      if(kittens[i].name === newKitten.name){
+    for (i in kittens) {
+      console.log("Checking Array if duplicate is present", kittens[i])
+      if (kittens[i].name === newKitten.name) {
 
-       
+
         alert("Kitten already exists")
-        isdup = true 
+        isdup = true
         console.log("Duplicate Status: ", isdup)
         break
-        
+
       }
-   
-      
+
+
     }
 
-    if(!isdup){
+    if (!isdup) {
       console.log("Kitten added", isdup)
       kittens.push(newKitten)
       saveKittens()
     }
-    else{
-         alert("Please enter another name not used!")
+    else {
+      alert("Please enter another name not used!")
 
     }
 
-    }
+  }
 
-  else{
+  else {
     kittens.push(newKitten)
     console.log("First Kitten added")
     console.log("Sucessfully added kitten")
@@ -207,7 +207,7 @@ function findKittenById(id) {
  */
 function pet(id) {
 
-  let foundKitten = findKittenById(id)  
+  let foundKitten = findKittenById(id)
 
 
   console.log("Petting Cat", foundKitten.name)
